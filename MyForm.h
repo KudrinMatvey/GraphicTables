@@ -7,6 +7,7 @@
 #include"..\Tables\TSortTable.h"
 #include"..\Tables\TTreeTable.h"
 
+
 using namespace std;
 namespace GraphicTables {
 
@@ -35,8 +36,12 @@ namespace GraphicTables {
 		TRecord<string, int> *maximum;
 		TSortTable<int, string> *top;
 		int *eff;
-		int flag = 0;
 		int *mode;
+
+		const int TSCAN_TABLE = 0;
+		const int TSORT_TABLE = 1;
+		const int THASH_TABLE = 2;
+		const int TTREE_TABLE = 3;
 
 	public:
 		MyForm(void)
@@ -65,7 +70,7 @@ namespace GraphicTables {
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  openToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  tabelsModeToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  arrayToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  hashToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  scanToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  sortToolStripMenuItem;
@@ -103,7 +108,6 @@ namespace GraphicTables {
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabelsModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->arrayToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hashToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->scanToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sortToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -169,42 +173,37 @@ namespace GraphicTables {
 			// 
 			// tabelsModeToolStripMenuItem
 			// 
-			this->tabelsModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
-				this->arrayToolStripMenuItem,
-					this->hashToolStripMenuItem, this->scanToolStripMenuItem, this->sortToolStripMenuItem, this->treeToolStripMenuItem
+			this->tabelsModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+				this->hashToolStripMenuItem,
+					this->scanToolStripMenuItem, this->sortToolStripMenuItem, this->treeToolStripMenuItem
 			});
 			this->tabelsModeToolStripMenuItem->Name = L"tabelsModeToolStripMenuItem";
 			this->tabelsModeToolStripMenuItem->Size = System::Drawing::Size(105, 24);
 			this->tabelsModeToolStripMenuItem->Text = L"Tabels mode";
 			// 
-			// arrayToolStripMenuItem
-			// 
-			this->arrayToolStripMenuItem->Name = L"arrayToolStripMenuItem";
-			this->arrayToolStripMenuItem->Size = System::Drawing::Size(119, 26);
-			this->arrayToolStripMenuItem->Text = L"Array";
-			// 
 			// hashToolStripMenuItem
 			// 
 			this->hashToolStripMenuItem->Name = L"hashToolStripMenuItem";
-			this->hashToolStripMenuItem->Size = System::Drawing::Size(119, 26);
+			this->hashToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->hashToolStripMenuItem->Text = L"Hash";
+			this->hashToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::hashToolStripMenuItem_Click);
 			// 
 			// scanToolStripMenuItem
 			// 
 			this->scanToolStripMenuItem->Name = L"scanToolStripMenuItem";
-			this->scanToolStripMenuItem->Size = System::Drawing::Size(119, 26);
+			this->scanToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->scanToolStripMenuItem->Text = L"Scan";
 			// 
 			// sortToolStripMenuItem
 			// 
 			this->sortToolStripMenuItem->Name = L"sortToolStripMenuItem";
-			this->sortToolStripMenuItem->Size = System::Drawing::Size(119, 26);
+			this->sortToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->sortToolStripMenuItem->Text = L"Sort";
 			// 
 			// treeToolStripMenuItem
 			// 
 			this->treeToolStripMenuItem->Name = L"treeToolStripMenuItem";
-			this->treeToolStripMenuItem->Size = System::Drawing::Size(119, 26);
+			this->treeToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->treeToolStripMenuItem->Text = L"Tree";
 			// 
 			// eff_label
@@ -381,10 +380,21 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 	top = new TSortTable<int, string>(count);
 	eff = new int[4];
 	mode = new int;
-	const int TSCAN_TABLE = 0;
-	const int TSORT_TABLE = 1;
-	const int TARRAY_TABLE = 2;
-	const int TTREE_TABLE = 3;
+
+}
+//private: System::Void arrayToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+//	*mode = TARRAY_TABLE;
+//	ClearScreen();
+//
+//}
+	private: void ClearScreen() {
+		for (int i = 0; i < count; i++) {
+			dataGridView1->Rows[i]->Cells[0]->Value = i;
+			dataGridView1->Rows[i]->Cells[1]->Value = "";
+		}
+	}
+private: System::Void hashToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
 }
 };
 }
