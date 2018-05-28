@@ -325,19 +325,20 @@ namespace GraphicTables {
 	private: System::Void openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		string filename;
 		
-		OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
+	/*	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
 
 		openFileDialog1->InitialDirectory = "c:\\";
 		openFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
 		openFileDialog1->FilterIndex = 2;
 		openFileDialog1->RestoreDirectory = true;
-		filename = openFileDialog1->FileName->ToString;
+		filename = openFileDialog1->FileName->ToString;*/
+		filename = "..\\Tables\\Text.txt";
 		ifstream ifs(filename);
-		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	//	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
-			if (ifs.open)
+			if (ifs.is_open())
 			{
-				while (!ifs.eof)
+				while (!ifs.eof())
 				{
 					ifs >> buffer;
 					string str(buffer);

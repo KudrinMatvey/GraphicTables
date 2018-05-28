@@ -1,28 +1,18 @@
 ﻿  MyForm.cpp
-c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(334): error C3374: невозможно получить адрес "System::String::ToString", пока не будет создан экземпляр делегата
-c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(334): error C3867: "System::String::ToString": нестандартный синтаксис; используйте "&", чтобы создать указатель на член
-c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(334): error C2679: бинарный "=": не найден оператор, принимающий правый операнд типа "overloaded-function" (или приемлемое преобразование отсутствует)
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstring(1043): note: может быть "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(_Elem)"
+c:\users\матвей\documents\visual studio 2015\projects\tables\tables\THashTable.h(10): warning C4018: <: несоответствие типов со знаком и без знака
+  c:\users\матвей\documents\visual studio 2015\projects\tables\tables\THashTable.h(8): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\..\Tables\TArrayHash.h(44): note: см. ссылку на создание экземпляров функции шаблон при компиляции "int THashTable<TKey,TValue>::HashFunc(TKey)"
           with
           [
-              _Elem=char
+              TKey=std::string,
+              TValue=int
           ]
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstring(1038): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *)"
+  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\..\Tables\TArrayHash.h(6): note: см. ссылку на создание экземпляров класса шаблон при компиляции "THashTable<TKey,TValue>"
           with
           [
-              _Elem=char
+              TKey=std::string,
+              TValue=int
           ]
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstring(1022): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)"
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstring(983): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)"
-          with
-          [
-              _Elem=char
-          ]
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstring(925): note: или       "std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) noexcept(<expr>)"
-  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(334): note: при попытке сопоставить список аргументов "(std::string, overloaded-function)"
-c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(338): error C3867: "std::basic_ifstream<char,std::char_traits<char>>::open": нестандартный синтаксис; используйте "&", чтобы создать указатель на член
-c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(340): error C2276: !: недопустимая операция с выражением привязанной функции-члена
-MyForm.cpp(8): error C2976: std::array: слишком мало аргументов шаблон
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility(363): note:  см. объявление "std::array"
-MyForm.cpp(8): error C3699: ^: это косвенное обращение невозможно использовать для типа "std::array"
-  MyForm.cpp(8): note: для продолжения работы компилятор заменил "^" на "*"
+  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(355): note: см. ссылку на создание экземпляров класса шаблон при компиляции "TArrayHash<std::string,int>"
+  GraphicTables.vcxproj -> C:\Users\Матвей\Documents\Visual Studio 2015\Projects\Tables\Debug\GraphicTables.exe
+  GraphicTables.vcxproj -> C:\Users\Матвей\Documents\Visual Studio 2015\Projects\Tables\Debug\GraphicTables.pdb (Full PDB)
