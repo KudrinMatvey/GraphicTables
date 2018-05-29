@@ -38,12 +38,13 @@ namespace GraphicTables {
 		TSortTable<int, string> *top;
 		int *eff;
 		int *mode;
-
+		bool *OpenFlag;
 		const int TSCAN_TABLE = 0;
 		const int TSORT_TABLE = 1;
 		const int THASH_TABLE = 2;
 		const int TTREE_TABLE = 3;
 	private: System::Windows::Forms::Button^  Delete_button;
+	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::ToolStripMenuItem^  reloadToolStripMenuItem;
 	protected:
 		
@@ -129,6 +130,7 @@ namespace GraphicTables {
 			this->Insert_button = (gcnew System::Windows::Forms::Button());
 			this->Find_button = (gcnew System::Windows::Forms::Button());
 			this->Delete_button = (gcnew System::Windows::Forms::Button());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown_value))->BeginInit();
@@ -144,7 +146,7 @@ namespace GraphicTables {
 			this->dataGridView1->Location = System::Drawing::Point(28, 31);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(494, 489);
+			this->dataGridView1->Size = System::Drawing::Size(710, 489);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// KeyColumn
@@ -167,7 +169,7 @@ namespace GraphicTables {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(742, 28);
+			this->menuStrip1->Size = System::Drawing::Size(988, 28);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -226,7 +228,7 @@ namespace GraphicTables {
 			// eff_label
 			// 
 			this->eff_label->AutoSize = true;
-			this->eff_label->Location = System::Drawing::Point(522, 506);
+			this->eff_label->Location = System::Drawing::Point(788, 497);
 			this->eff_label->Name = L"eff_label";
 			this->eff_label->Size = System::Drawing::Size(28, 17);
 			this->eff_label->TabIndex = 2;
@@ -235,14 +237,14 @@ namespace GraphicTables {
 			// eff_output
 			// 
 			this->eff_output->AutoSize = true;
-			this->eff_output->Location = System::Drawing::Point(557, 506);
+			this->eff_output->Location = System::Drawing::Point(823, 497);
 			this->eff_output->Name = L"eff_output";
 			this->eff_output->Size = System::Drawing::Size(0, 17);
 			this->eff_output->TabIndex = 3;
 			// 
 			// Insert_textbox
 			// 
-			this->Insert_textbox->Location = System::Drawing::Point(525, 57);
+			this->Insert_textbox->Location = System::Drawing::Point(791, 53);
 			this->Insert_textbox->Name = L"Insert_textbox";
 			this->Insert_textbox->Size = System::Drawing::Size(100, 22);
 			this->Insert_textbox->TabIndex = 4;
@@ -250,7 +252,7 @@ namespace GraphicTables {
 			// 
 			// Find_textbox
 			// 
-			this->Find_textbox->Location = System::Drawing::Point(528, 128);
+			this->Find_textbox->Location = System::Drawing::Point(794, 119);
 			this->Find_textbox->Name = L"Find_textbox";
 			this->Find_textbox->Size = System::Drawing::Size(100, 22);
 			this->Find_textbox->TabIndex = 5;
@@ -258,7 +260,7 @@ namespace GraphicTables {
 			// 
 			// eff_null
 			// 
-			this->eff_null->Location = System::Drawing::Point(593, 503);
+			this->eff_null->Location = System::Drawing::Point(859, 494);
 			this->eff_null->Name = L"eff_null";
 			this->eff_null->Size = System::Drawing::Size(75, 23);
 			this->eff_null->TabIndex = 6;
@@ -269,7 +271,7 @@ namespace GraphicTables {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(525, 34);
+			this->label1->Location = System::Drawing::Point(791, 30);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(43, 17);
 			this->label1->TabIndex = 7;
@@ -277,7 +279,7 @@ namespace GraphicTables {
 			// 
 			// numericUpDown_value
 			// 
-			this->numericUpDown_value->Location = System::Drawing::Point(632, 56);
+			this->numericUpDown_value->Location = System::Drawing::Point(898, 52);
 			this->numericUpDown_value->Name = L"numericUpDown_value";
 			this->numericUpDown_value->Size = System::Drawing::Size(72, 22);
 			this->numericUpDown_value->TabIndex = 8;
@@ -285,7 +287,7 @@ namespace GraphicTables {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(525, 108);
+			this->label2->Location = System::Drawing::Point(791, 99);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(35, 17);
 			this->label2->TabIndex = 9;
@@ -294,7 +296,7 @@ namespace GraphicTables {
 			// 
 			// Insert_button
 			// 
-			this->Insert_button->Location = System::Drawing::Point(632, 85);
+			this->Insert_button->Location = System::Drawing::Point(898, 76);
 			this->Insert_button->Name = L"Insert_button";
 			this->Insert_button->Size = System::Drawing::Size(75, 23);
 			this->Insert_button->TabIndex = 10;
@@ -304,7 +306,7 @@ namespace GraphicTables {
 			// 
 			// Find_button
 			// 
-			this->Find_button->Location = System::Drawing::Point(635, 126);
+			this->Find_button->Location = System::Drawing::Point(901, 117);
 			this->Find_button->Name = L"Find_button";
 			this->Find_button->Size = System::Drawing::Size(75, 23);
 			this->Find_button->TabIndex = 11;
@@ -314,18 +316,28 @@ namespace GraphicTables {
 			// 
 			// Delete_button
 			// 
-			this->Delete_button->Location = System::Drawing::Point(635, 156);
+			this->Delete_button->Location = System::Drawing::Point(901, 147);
 			this->Delete_button->Name = L"Delete_button";
 			this->Delete_button->Size = System::Drawing::Size(75, 23);
 			this->Delete_button->TabIndex = 12;
 			this->Delete_button->Text = L"Delete";
 			this->Delete_button->UseVisualStyleBackColor = true;
 			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(794, 191);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(46, 17);
+			this->label3->TabIndex = 13;
+			this->label3->Text = L"label3";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(742, 535);
+			this->ClientSize = System::Drawing::Size(988, 535);
+			this->Controls->Add(this->label3);
 			this->Controls->Add(this->Delete_button);
 			this->Controls->Add(this->Find_button);
 			this->Controls->Add(this->Insert_button);
@@ -353,6 +365,14 @@ namespace GraphicTables {
 		}
 #pragma endregion
 	private: System::Void openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (*OpenFlag)
+		{
+			//treetab->ClearTable();
+			sorttab->ClearTable();
+			scantab->ClearTable();
+			//hashtab->ClearTable();
+		}
+		*OpenFlag = true;
 		string filename;
 		
 	/*	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
@@ -376,7 +396,8 @@ namespace GraphicTables {
 					tmp.Key = str;
 					tmp.Value = 1;
 
-					if (!sorttab->Insert(tmp))
+					bool tmpp = sorttab->Insert(tmp);
+					if (!tmpp)
 						sorttab->IncrCurrVal();
 
 					if (!scantab->Insert(tmp))
@@ -411,6 +432,8 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 	top = new TSortTable<int, string>(count);
 	eff = new int[4];
 	mode = new int;
+	OpenFlag = new bool;
+	*OpenFlag = false;
 
 }
 //private: System::Void arrayToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -425,11 +448,18 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 		}
 	}
 private: System::Void hashToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	label3->Text = "Mode: Hash";
 	*mode = THASH_TABLE;
+	
 }
 private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	TRecord<string, int> tmp;
 	dataGridView1->Rows->Clear();
+	sorttab->nulleff();
+	scantab->nulleff();
+	hashtab->nulleff();
+	treetab->nulleff();
+	eff_output->Text = "0";
 	if (*mode == TSCAN_TABLE)
 	{
 		int i = 0;
@@ -441,8 +471,7 @@ private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, Sys
 				dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
 				dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 				i++;
-			 //   eff_output->Text = Convert::ToString(scantab.eff);
-
+			 
 		}
 	}
 	else if (*mode == TSORT_TABLE)
@@ -456,8 +485,6 @@ private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, Sys
 			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			i++;
-			eff_output->Text = Convert::ToString(eff[0]);
-
 		}
 	}
 	else if (*mode == THASH_TABLE)
@@ -471,8 +498,6 @@ private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, Sys
 			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			i++;
-			eff_output->Text = Convert::ToString(eff);
-
 		}
 	}
 	else if (*mode == TTREE_TABLE)
@@ -486,8 +511,6 @@ private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, Sys
 			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			i++;
-			eff_output->Text = Convert::ToString(eff[0]);
-
 		}
 	}
 }
@@ -505,12 +528,15 @@ public: char *GetStr(string str) {
 			}
 
 private: System::Void scanToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	label3->Text = "Mode: Scan";
 	*mode = TSCAN_TABLE;
 }
 private: System::Void sortToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	label3->Text = "Mode: Sort";
 	*mode = TSORT_TABLE;
 }
 private: System::Void treeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	label3->Text = "Mode: Tree";
 	*mode = TTREE_TABLE;
 }
 private: System::Void Insert_textbox_TextChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -550,9 +576,15 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 				dataGridView1->Rows->Clear();
 				dataGridView1->Rows->Add();
 				dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
-				dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);	
+				dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 				System::String^ eff_str = scantab->geteff().ToString(); 
 				eff_output->Text = eff_str;
+		}
+		else
+		{
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
 	if (*mode == TSORT_TABLE)
@@ -569,6 +601,12 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			System::String^ eff_str = sorttab->geteff().ToString();
 			eff_output->Text = eff_str;
 		}
+		else
+		{
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
+		}
 	}
 	if (*mode == THASH_TABLE)
 	{
@@ -583,6 +621,12 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			System::String^ eff_str = hashtab->geteff().ToString();
 			eff_output->Text = eff_str;
+		}
+		else
+		{
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
 	if (*mode == TTREE_TABLE)
@@ -599,6 +643,12 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			System::String^ eff_str = treetab->geteff().ToString();
 			eff_output->Text = eff_str;
+		}
+		else
+		{
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
 }
