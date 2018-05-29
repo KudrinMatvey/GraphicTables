@@ -1,4 +1,5 @@
 ﻿  MyForm.cpp
+c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(474): warning C4800: int *: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
 c:\users\матвей\documents\visual studio 2015\projects\tables\tables\THashTable.h(10): warning C4018: <: несоответствие типов со знаком и без знака
   c:\users\матвей\documents\visual studio 2015\projects\tables\tables\THashTable.h(8): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
   c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\..\Tables\TArrayHash.h(44): note: см. ссылку на создание экземпляров функции шаблон при компиляции "int THashTable<TKey,TValue>::HashFunc(TKey)"
@@ -13,6 +14,6 @@ c:\users\матвей\documents\visual studio 2015\projects\tables\tables\THashT
               TKey=std::string,
               TValue=int
           ]
-  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(355): note: см. ссылку на создание экземпляров класса шаблон при компиляции "TArrayHash<std::string,int>"
+  c:\users\матвей\documents\visual studio 2015\projects\tables\graphictables\MyForm.h(385): note: см. ссылку на создание экземпляров класса шаблон при компиляции "TArrayHash<std::string,int>"
   GraphicTables.vcxproj -> C:\Users\Матвей\Documents\Visual Studio 2015\Projects\Tables\Debug\GraphicTables.exe
   GraphicTables.vcxproj -> C:\Users\Матвей\Documents\Visual Studio 2015\Projects\Tables\Debug\GraphicTables.pdb (Full PDB)

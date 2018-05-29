@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<iostream>
 #include<fstream>
+#include <msclr\marshal_cppstd.h>
 #include"..\Tables\TArrayHash.h"
 #include"..\Tables\TScanTable.h"
 #include"..\Tables\TSortTable.h"
@@ -42,6 +43,10 @@ namespace GraphicTables {
 		const int TSORT_TABLE = 1;
 		const int THASH_TABLE = 2;
 		const int TTREE_TABLE = 3;
+	private: System::Windows::Forms::Button^  Delete_button;
+	private: System::Windows::Forms::ToolStripMenuItem^  reloadToolStripMenuItem;
+	protected:
+		
 
 	public:
 		MyForm(void)
@@ -107,6 +112,7 @@ namespace GraphicTables {
 			this->ValueColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->reloadToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabelsModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hashToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->scanToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -122,6 +128,7 @@ namespace GraphicTables {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->Insert_button = (gcnew System::Windows::Forms::Button());
 			this->Find_button = (gcnew System::Windows::Forms::Button());
+			this->Delete_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown_value))->BeginInit();
@@ -134,7 +141,7 @@ namespace GraphicTables {
 				this->KeyColumn,
 					this->ValueColumn
 			});
-			this->dataGridView1->Location = System::Drawing::Point(12, 34);
+			this->dataGridView1->Location = System::Drawing::Point(28, 31);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowTemplate->Height = 24;
 			this->dataGridView1->Size = System::Drawing::Size(494, 489);
@@ -154,9 +161,9 @@ namespace GraphicTables {
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->openToolStripMenuItem,
-					this->tabelsModeToolStripMenuItem
+					this->reloadToolStripMenuItem, this->tabelsModeToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -171,6 +178,13 @@ namespace GraphicTables {
 			this->openToolStripMenuItem->Text = L"Open txt File";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::openToolStripMenuItem_Click);
 			// 
+			// reloadToolStripMenuItem
+			// 
+			this->reloadToolStripMenuItem->Name = L"reloadToolStripMenuItem";
+			this->reloadToolStripMenuItem->Size = System::Drawing::Size(68, 24);
+			this->reloadToolStripMenuItem->Text = L"Reload";
+			this->reloadToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::reloadToolStripMenuItem_Click);
+			// 
 			// tabelsModeToolStripMenuItem
 			// 
 			this->tabelsModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
@@ -184,27 +198,30 @@ namespace GraphicTables {
 			// hashToolStripMenuItem
 			// 
 			this->hashToolStripMenuItem->Name = L"hashToolStripMenuItem";
-			this->hashToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->hashToolStripMenuItem->Size = System::Drawing::Size(117, 26);
 			this->hashToolStripMenuItem->Text = L"Hash";
 			this->hashToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::hashToolStripMenuItem_Click);
 			// 
 			// scanToolStripMenuItem
 			// 
 			this->scanToolStripMenuItem->Name = L"scanToolStripMenuItem";
-			this->scanToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->scanToolStripMenuItem->Size = System::Drawing::Size(117, 26);
 			this->scanToolStripMenuItem->Text = L"Scan";
+			this->scanToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::scanToolStripMenuItem_Click);
 			// 
 			// sortToolStripMenuItem
 			// 
 			this->sortToolStripMenuItem->Name = L"sortToolStripMenuItem";
-			this->sortToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->sortToolStripMenuItem->Size = System::Drawing::Size(117, 26);
 			this->sortToolStripMenuItem->Text = L"Sort";
+			this->sortToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sortToolStripMenuItem_Click);
 			// 
 			// treeToolStripMenuItem
 			// 
 			this->treeToolStripMenuItem->Name = L"treeToolStripMenuItem";
-			this->treeToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->treeToolStripMenuItem->Size = System::Drawing::Size(117, 26);
 			this->treeToolStripMenuItem->Text = L"Tree";
+			this->treeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::treeToolStripMenuItem_Click);
 			// 
 			// eff_label
 			// 
@@ -229,6 +246,7 @@ namespace GraphicTables {
 			this->Insert_textbox->Name = L"Insert_textbox";
 			this->Insert_textbox->Size = System::Drawing::Size(100, 22);
 			this->Insert_textbox->TabIndex = 4;
+			this->Insert_textbox->TextChanged += gcnew System::EventHandler(this, &MyForm::Insert_textbox_TextChanged);
 			// 
 			// Find_textbox
 			// 
@@ -246,6 +264,7 @@ namespace GraphicTables {
 			this->eff_null->TabIndex = 6;
 			this->eff_null->Text = L"Reset eff";
 			this->eff_null->UseVisualStyleBackColor = true;
+			this->eff_null->Click += gcnew System::EventHandler(this, &MyForm::eff_null_Click);
 			// 
 			// label1
 			// 
@@ -281,6 +300,7 @@ namespace GraphicTables {
 			this->Insert_button->TabIndex = 10;
 			this->Insert_button->Text = L"Insert";
 			this->Insert_button->UseVisualStyleBackColor = true;
+			this->Insert_button->Click += gcnew System::EventHandler(this, &MyForm::Insert_button_Click);
 			// 
 			// Find_button
 			// 
@@ -290,12 +310,23 @@ namespace GraphicTables {
 			this->Find_button->TabIndex = 11;
 			this->Find_button->Text = L"Find";
 			this->Find_button->UseVisualStyleBackColor = true;
+			this->Find_button->Click += gcnew System::EventHandler(this, &MyForm::Find_button_Click);
+			// 
+			// Delete_button
+			// 
+			this->Delete_button->Location = System::Drawing::Point(635, 156);
+			this->Delete_button->Name = L"Delete_button";
+			this->Delete_button->Size = System::Drawing::Size(75, 23);
+			this->Delete_button->TabIndex = 12;
+			this->Delete_button->Text = L"Delete";
+			this->Delete_button->UseVisualStyleBackColor = true;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(742, 535);
+			this->Controls->Add(this->Delete_button);
 			this->Controls->Add(this->Find_button);
 			this->Controls->Add(this->Insert_button);
 			this->Controls->Add(this->label2);
@@ -394,7 +425,189 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 		}
 	}
 private: System::Void hashToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	*mode = THASH_TABLE;
+}
+private: System::Void reloadToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	TRecord<string, int> tmp;
+	dataGridView1->Rows->Clear();
+	if (*mode == TSCAN_TABLE)
+	{
+		int i = 0;
+		for (scantab->Reset(); !scantab->IsEnd(); scantab->GoNext())
+		{
 
+				tmp = scantab->GetCurr();
+				dataGridView1->Rows->Add();
+				dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+				dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+				i++;
+			 //   eff_output->Text = Convert::ToString(scantab.eff);
+
+		}
+	}
+	else if (*mode == TSORT_TABLE)
+	{
+		int i = 0;
+		for (sorttab->Reset(); !sorttab->IsEnd(); sorttab->GoNext())
+		{
+
+			tmp = sorttab->GetCurr();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			i++;
+			eff_output->Text = Convert::ToString(eff[0]);
+
+		}
+	}
+	else if (*mode == THASH_TABLE)
+	{
+		int i = 0;
+		for (hashtab->Reset(); !hashtab->IsEnd(); hashtab->GoNext())
+		{
+
+			tmp = hashtab->GetCurr();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			i++;
+			eff_output->Text = Convert::ToString(eff);
+
+		}
+	}
+	else if (*mode == TTREE_TABLE)
+	{
+		int i = 0;
+		for (treetab->Reset(); !treetab->IsEnd(); treetab->GoNext())
+		{
+
+			tmp = treetab->GetCurr();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			i++;
+			eff_output->Text = Convert::ToString(eff[0]);
+
+		}
+	}
+}
+public: String^ StrToStr(string str) {
+			 return gcnew String(GetStr(str));
+		 }
+public: char *GetStr(string str) {
+				int len = str.length();
+				char *res = new char[len + 1];
+				for (int i = 0; i < len; i++) {
+					res[i] = str[i];
+				}
+				res[len] = '\0';
+				return res;
+			}
+
+private: System::Void scanToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	*mode = TSCAN_TABLE;
+}
+private: System::Void sortToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	*mode = TSORT_TABLE;
+}
+private: System::Void treeToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	*mode = TTREE_TABLE;
+}
+private: System::Void Insert_textbox_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+
+}
+private: System::Void Insert_button_Click(System::Object^  sender, System::EventArgs^  e) {
+	string str = msclr::interop::marshal_as<std::string>(Insert_textbox->Text);
+	TRecord<string, int>tmp;
+	tmp.Key = str;
+	tmp.Value = (int)numericUpDown_value->Value;
+
+	if (!sorttab->Insert(tmp))
+		sorttab->IncrCurrVal();
+
+	if (!scantab->Insert(tmp))
+		scantab->IncrCurrVal();
+
+	if (!hashtab->Insert(tmp))
+		hashtab->IncrCurrVal();
+
+	if (!treetab->Insert(tmp)) {
+		treetab->SetpCurrTopRes();
+		treetab->IncrCurrVal();
+	}
+}
+private: System::Void Find_button_Click(System::Object^  sender, System::EventArgs^  e) {
+	string str = msclr::interop::marshal_as<std::string>(Find_textbox->Text);
+	TRecord<string, int> tmp;
+	int i = 0;
+	if (*mode == TSCAN_TABLE)
+	{
+		scantab->nulleff();
+		bool flag = scantab->Find(str);
+		if (flag)
+		{
+				tmp = scantab->GetCurr();
+				dataGridView1->Rows->Clear();
+				dataGridView1->Rows->Add();
+				dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+				dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);	
+				System::String^ eff_str = scantab->geteff().ToString(); 
+				eff_output->Text = eff_str;
+		}
+	}
+	if (*mode == TSORT_TABLE)
+	{
+		sorttab->nulleff();
+		bool flag = sorttab->Find(str);
+		if (flag)
+		{
+			tmp = sorttab->GetCurr();
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			System::String^ eff_str = sorttab->geteff().ToString();
+			eff_output->Text = eff_str;
+		}
+	}
+	if (*mode == THASH_TABLE)
+	{
+		hashtab->nulleff();
+		bool flag = hashtab->Find(str);
+		if (flag)
+		{
+			tmp = hashtab->GetCurr();
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			System::String^ eff_str = hashtab->geteff().ToString();
+			eff_output->Text = eff_str;
+		}
+	}
+	if (*mode == TTREE_TABLE)
+	{
+		treetab->nulleff();
+		bool flag = scantab->Find(str);
+		if (flag)
+		{
+			treetab->SetpCurrTopRes();
+			tmp = treetab->GetCurr();
+			dataGridView1->Rows->Clear();
+			dataGridView1->Rows->Add();
+			dataGridView1->Rows[i]->Cells[0]->Value = Convert::ToString(StrToStr(tmp.Key));
+			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
+			System::String^ eff_str = treetab->geteff().ToString();
+			eff_output->Text = eff_str;
+		}
+	}
+}
+private: System::Void eff_null_Click(System::Object^  sender, System::EventArgs^  e) {
+	sorttab->nulleff();
+	scantab->nulleff();
+	hashtab->nulleff();
+	treetab->nulleff();
+	eff_output->Text = "0";
 }
 };
 }
