@@ -322,6 +322,7 @@ namespace GraphicTables {
 			this->Delete_button->TabIndex = 12;
 			this->Delete_button->Text = L"Delete";
 			this->Delete_button->UseVisualStyleBackColor = true;
+			this->Delete_button->Click += gcnew System::EventHandler(this, &MyForm::Delete_button_Click);
 			// 
 			// label3
 			// 
@@ -543,6 +544,7 @@ private: System::Void Insert_textbox_TextChanged(System::Object^  sender, System
 
 }
 private: System::Void Insert_button_Click(System::Object^  sender, System::EventArgs^  e) {
+	ResetEff();
 	string str = msclr::interop::marshal_as<std::string>(Insert_textbox->Text);
 	TRecord<string, int>tmp;
 	tmp.Key = str;
@@ -559,17 +561,26 @@ private: System::Void Insert_button_Click(System::Object^  sender, System::Event
 
 	if (!treetab->Insert(tmp)) {
 		treetab->SetpCurrTopRes();
-		treetab->IncrCurrVal();
+		treetab->IncrCurrVal();		
 	}
+	if (*mode == TSCAN_TABLE)
+		eff_output->Text = scantab->geteff().ToString();
+	if (*mode == TSORT_TABLE)
+		eff_output->Text = sorttab->geteff().ToString();
+	if (*mode == THASH_TABLE)
+		eff_output->Text = hashtab->geteff().ToString();
+	if (*mode == TTREE_TABLE)
+		eff_output->Text = treetab->geteff().ToString();
 }
 private: System::Void Find_button_Click(System::Object^  sender, System::EventArgs^  e) {
 	string str = msclr::interop::marshal_as<std::string>(Find_textbox->Text);
 	TRecord<string, int> tmp;
 	int i = 0;
+	bool flag = false;
 	if (*mode == TSCAN_TABLE)
 	{
 		scantab->nulleff();
-		bool flag = scantab->Find(str);
+		flag = scantab->Find(str);
 		if (flag)
 		{
 				tmp = scantab->GetCurr();
@@ -587,10 +598,10 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
-	if (*mode == TSORT_TABLE)
+	else if (*mode == TSORT_TABLE)
 	{
 		sorttab->nulleff();
-		bool flag = sorttab->Find(str);
+		flag = sorttab->Find(str);
 		if (flag)
 		{
 			tmp = sorttab->GetCurr();
@@ -608,10 +619,10 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
-	if (*mode == THASH_TABLE)
+	else if (*mode == THASH_TABLE)
 	{
 		hashtab->nulleff();
-		bool flag = hashtab->Find(str);
+		flag = hashtab->Find(str);
 		if (flag)
 		{
 			tmp = hashtab->GetCurr();
@@ -629,10 +640,10 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
-	if (*mode == TTREE_TABLE)
+	else if (*mode == TTREE_TABLE)
 	{
 		treetab->nulleff();
-		bool flag = scantab->Find(str);
+		flag = scantab->Find(str);
 		if (flag)
 		{
 			treetab->SetpCurrTopRes();
@@ -643,6 +654,7 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[1]->Value = Convert::ToString(tmp.Value);
 			System::String^ eff_str = treetab->geteff().ToString();
 			eff_output->Text = eff_str;
+
 		}
 		else
 		{
@@ -651,13 +663,37 @@ private: System::Void Find_button_Click(System::Object^  sender, System::EventAr
 			dataGridView1->Rows[i]->Cells[0]->Value = "Nothing found";
 		}
 	}
+	/*if (flag)
+		Delete_button->Enabled = true;*/
 }
 private: System::Void eff_null_Click(System::Object^  sender, System::EventArgs^  e) {
-	sorttab->nulleff();
-	scantab->nulleff();
-	hashtab->nulleff();
-	treetab->nulleff();
-	eff_output->Text = "0";
+	ResetEff();
+}
+	private:void ResetEff()
+	{
+		sorttab->nulleff();
+		scantab->nulleff();
+		hashtab->nulleff();
+		treetab->nulleff();
+		eff_output->Text = "0";
+	}
+private: System::Void Delete_button_Click(System::Object^  sender, System::EventArgs^  e) {
+	ResetEff();
+	string str = msclr::interop::marshal_as<std::string>(Insert_textbox->Text);
+
+	sorttab->Delete(str);
+	scantab->Delete(str);
+	hashtab->Delete(str);
+	treetab->Delete(str);
+
+	if (*mode == TSCAN_TABLE)
+		eff_output->Text = scantab->geteff().ToString();
+	if (*mode == TSORT_TABLE)
+		eff_output->Text = sorttab->geteff().ToString();
+	if (*mode == THASH_TABLE)
+		eff_output->Text = hashtab->geteff().ToString();
+	if (*mode == TTREE_TABLE)
+		eff_output->Text = treetab->geteff().ToString();
 }
 };
 }
