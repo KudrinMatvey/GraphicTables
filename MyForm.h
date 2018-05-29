@@ -36,6 +36,7 @@ namespace GraphicTables {
 		TTreeTable<string, int> *treetab;
 		TRecord<string, int> *maximum;
 		TSortTable<int, string> *top;
+		string *fileName;
 		int *eff;
 		int *mode;
 		bool *OpenFlag;
@@ -45,6 +46,7 @@ namespace GraphicTables {
 		const int TTREE_TABLE = 3;
 	private: System::Windows::Forms::Button^  Delete_button;
 	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::ToolStripMenuItem^  chooseTxtFileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  reloadToolStripMenuItem;
 	protected:
 		
@@ -112,6 +114,7 @@ namespace GraphicTables {
 			this->KeyColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ValueColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->chooseTxtFileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->reloadToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tabelsModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -160,15 +163,22 @@ namespace GraphicTables {
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-				this->openToolStripMenuItem,
-					this->reloadToolStripMenuItem, this->tabelsModeToolStripMenuItem
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+				this->chooseTxtFileToolStripMenuItem,
+					this->openToolStripMenuItem, this->reloadToolStripMenuItem, this->tabelsModeToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Size = System::Drawing::Size(988, 28);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// chooseTxtFileToolStripMenuItem
+			// 
+			this->chooseTxtFileToolStripMenuItem->Name = L"chooseTxtFileToolStripMenuItem";
+			this->chooseTxtFileToolStripMenuItem->Size = System::Drawing::Size(116, 24);
+			this->chooseTxtFileToolStripMenuItem->Text = L"Choose txt file";
+			this->chooseTxtFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::chooseTxtFileToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
@@ -197,28 +207,28 @@ namespace GraphicTables {
 			// hashToolStripMenuItem
 			// 
 			this->hashToolStripMenuItem->Name = L"hashToolStripMenuItem";
-			this->hashToolStripMenuItem->Size = System::Drawing::Size(117, 26);
+			this->hashToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->hashToolStripMenuItem->Text = L"Hash";
 			this->hashToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::hashToolStripMenuItem_Click);
 			// 
 			// scanToolStripMenuItem
 			// 
 			this->scanToolStripMenuItem->Name = L"scanToolStripMenuItem";
-			this->scanToolStripMenuItem->Size = System::Drawing::Size(117, 26);
+			this->scanToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->scanToolStripMenuItem->Text = L"Scan";
 			this->scanToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::scanToolStripMenuItem_Click);
 			// 
 			// sortToolStripMenuItem
 			// 
 			this->sortToolStripMenuItem->Name = L"sortToolStripMenuItem";
-			this->sortToolStripMenuItem->Size = System::Drawing::Size(117, 26);
+			this->sortToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->sortToolStripMenuItem->Text = L"Sort";
 			this->sortToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sortToolStripMenuItem_Click);
 			// 
 			// treeToolStripMenuItem
 			// 
 			this->treeToolStripMenuItem->Name = L"treeToolStripMenuItem";
-			this->treeToolStripMenuItem->Size = System::Drawing::Size(117, 26);
+			this->treeToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->treeToolStripMenuItem->Text = L"Tree";
 			this->treeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::treeToolStripMenuItem_Click);
 			// 
@@ -299,9 +309,9 @@ namespace GraphicTables {
 			this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(794, 191);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(46, 17);
+			this->label3->Size = System::Drawing::Size(77, 17);
 			this->label3->TabIndex = 13;
-			this->label3->Text = L"label3";
+			this->label3->Text = L"Mode: Sort";
 			// 
 			// MyForm
 			// 
@@ -341,7 +351,6 @@ namespace GraphicTables {
 			hashtab->ClearTable();
 		}
 		*OpenFlag = true;
-		string filename;
 		
 	/*	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
 
@@ -350,8 +359,8 @@ namespace GraphicTables {
 		openFileDialog1->FilterIndex = 2;
 		openFileDialog1->RestoreDirectory = true;
 		filename = openFileDialog1->FileName->ToString;*/
-		filename = "..\\Tables\\Text.txt";
-		ifstream ifs(filename);
+	
+		ifstream ifs(*fileName);
 	//	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
 			if (ifs.is_open())
@@ -400,8 +409,11 @@ private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e
 	top = new TSortTable<int, string>(count);
 	eff = new int[4];
 	mode = new int;
+	*mode = TSORT_TABLE;
 	OpenFlag = new bool;
 	*OpenFlag = false;
+	fileName = new string;
+	*fileName = "..\\Tables\\Text.txt";
 
 }
 //private: System::Void arrayToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -670,6 +682,16 @@ private: System::Void Delete_button_Click(System::Object^  sender, System::Event
 		}
 	}
 private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void chooseTxtFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
+
+	openFileDialog1->InitialDirectory = "c:\\";
+	openFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+	openFileDialog1->FilterIndex = 2;
+	openFileDialog1->RestoreDirectory = true;
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	*fileName = msclr::interop::marshal_as<std::string>(openFileDialog1->FileName);
 }
 };
 }
